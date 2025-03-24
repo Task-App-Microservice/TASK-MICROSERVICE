@@ -1,5 +1,5 @@
 import { Controller } from "@nestjs/common";
-import { EventPattern, MessagePattern, Payload } from "@nestjs/microservices";
+import { MessagePattern, Payload } from "@nestjs/microservices";
 import { CreateUserServiceImpl } from "src/features/user/application/services/create/create-user-service-impl.service";
 import { CreateUserDTo } from "../../../out/create-user.dto";
 

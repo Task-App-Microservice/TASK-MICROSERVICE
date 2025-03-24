@@ -9,15 +9,16 @@ export class CreateProjectRepositoryImpl implements CreateProjectRepository {
         private readonly databaseService: DatabaseService
     ){}
     async save(data: ProjectProps, ownerId: number): Promise<Project> {
+        const {name} = data;
         return await this.databaseService.project.create({
             data:{
-                ...data,
+                name,
                 ownerId,
                 participants:{
                     create: {
                         userId: ownerId
                     }
-                }
+                },
             }
         }) as unknown as Project;
     }

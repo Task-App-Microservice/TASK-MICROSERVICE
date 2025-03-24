@@ -3,6 +3,8 @@ import { DatabaseModule } from 'src/root/config/database/database.module';
 import { CreateUserServiceImpl } from './application/services/create/create-user-service-impl.service';
 import { CreateUserRepositoryImpl } from './adapters/out/repositories/create/create-user-repository-impl.provider';
 import { CreateUserController } from './adapters/in/rabbit/create/create-user.controller';
+import { ReadUserServiceImpl } from './application/services/read/read-user-service-impl.service';
+import { ReadUserRepositoryImpl } from './adapters/out/repositories/read/read-user-repository-impl.provider';
 
 @Module({
   imports: [
@@ -13,8 +15,12 @@ import { CreateUserController } from './adapters/in/rabbit/create/create-user.co
   ],
   providers: [
     CreateUserServiceImpl,
-    CreateUserRepositoryImpl
+    CreateUserRepositoryImpl,
+    ReadUserServiceImpl,
+    ReadUserRepositoryImpl
   ],
-  exports: []
+  exports: [
+    ReadUserServiceImpl
+  ]
 })
 export class UserModule { }
