@@ -6,7 +6,7 @@ import {
 import { CreateProjectDto } from '../../../out/dto/create-project.dto';
 import { CreateProjectServiceImpl } from 'src/features/project/application/services/create/create-project-service-impl.service';
 
-@Controller('project')
+@Controller('task/project')
 export class CreateProjectController {
   constructor(private readonly createProjectService: CreateProjectServiceImpl) {}
 

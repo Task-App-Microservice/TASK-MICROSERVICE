@@ -6,6 +6,7 @@ import { CreateProjectRepositoryImpl } from './adapters/out/repositories/create/
 import { ReadProjectServiceImpl } from './application/services/read/read-project-service-impl.service';
 import { UserModule } from '../user/user.module';
 import { CreateProjectController } from './adapters/in/controllers/create/create-project.controller';
+import { ReadProjectController } from './adapters/in/controllers/read/read-project.controller';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { CreateProjectController } from './adapters/in/controllers/create/create
     UserModule
   ],
   controllers: [
-    CreateProjectController
+    CreateProjectController,
+    ReadProjectController
   ],
   providers: [
     ReadProjectRepositoryImpl,

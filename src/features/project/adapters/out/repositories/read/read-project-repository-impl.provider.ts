@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Project } from 'src/features/project/domain/entities/project.entity';
-import { ReadProjectRepository } from 'src/features/project/domain/repositories/read-project.repository';
+import { ControlPagination, ReadProjectRepository, ResponsePagination } from 'src/features/project/domain/repositories/read-project.repository';
 import { DatabaseService } from 'src/root/config/database/services/database.service';
 
 @Injectable()
@@ -14,5 +14,28 @@ export class ReadProjectRepositoryImpl implements ReadProjectRepository {
                 id
             }
         }) as unknown as Project;
+    }
+
+    async findAllByExternalId(userId: number, control: ControlPagination): Promise<ResponsePagination<Project[]>> {
+        const skip = (control.page - 1) * control.limit;
+        const [data, total] = await Promise.all([
+            this.databaseService.project.findMany({
+                skip,
+                take: control.limit,
+                where:{
+                    owner:{
+                        id: userId
+                    }
+                }
+            }) as unknown as Project[],
+            this.databaseService.project.count()
+        ])
+        return{
+            results: data,
+            meta:{
+              total,
+            page: control.page  
+            }
+        }
     }
 }
