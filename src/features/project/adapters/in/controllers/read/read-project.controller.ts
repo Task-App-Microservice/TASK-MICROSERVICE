@@ -5,6 +5,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ReadProjectServiceImpl } from 'src/features/project/application/services/read/read-project-service-impl.service';
+import { CuidValidationPipe } from 'src/root/pipes/cuid-validator.pipe';
 
 @Controller('task/project')
 export class ReadProjectController {
@@ -12,7 +13,7 @@ export class ReadProjectController {
 
   @Get("all/:referenceExternalId")
   findALl(
-    @Param('referenceExternalId') referenceExternalId: string,
+    @Param('referenceExternalId', CuidValidationPipe) referenceExternalId: string,
     @Query("page") page : string,
     @Query("limit") limit: string,
 

@@ -9,6 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ReadTaskServiceImpl } from 'src/features/task/application/services/read/read-tast-service-impl.service';
+import { CuidValidationPipe } from 'src/root/pipes/cuid-validator.pipe';
 
 @Controller('task')
 export class ReadTaskController {
@@ -16,7 +17,7 @@ export class ReadTaskController {
 
   @Get("all/:projectId")
   async findALl(
-    @Param('projectId') projectId: string,
+    @Param('projectId', CuidValidationPipe) projectId: string,
     @Query("page") page: string,
     @Query("limit") limit: string,
   ) {
