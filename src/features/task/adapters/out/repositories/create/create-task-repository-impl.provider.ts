@@ -9,9 +9,10 @@ export class CreateTaskRepositoryImpl implements CreateTaskRepository {
         private readonly databaseService: DatabaseService
     ){}
     async save(data: TaskData): Promise<Task> {
+        const {userId, ...dataTran} = data
         return await this.databaseService.task.create({
             data:{
-                ...data,
+                ...dataTran,
             }
         }) as unknown as Task;
     }

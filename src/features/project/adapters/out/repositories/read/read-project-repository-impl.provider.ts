@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Project } from 'src/features/project/domain/entities/project.entity';
-import { ControlPagination, ReadProjectRepository, ResponsePagination } from 'src/features/project/domain/repositories/read-project.repository';
+import {  ReadProjectRepository } from 'src/features/project/domain/repositories/read-project.repository';
 import { DatabaseService } from 'src/root/config/database/services/database.service';
+import { ControlPagination, ResponsePagination } from 'src/root/core/pagination.core';
 
 @Injectable()
 export class ReadProjectRepositoryImpl implements ReadProjectRepository {
@@ -37,5 +38,13 @@ export class ReadProjectRepositoryImpl implements ReadProjectRepository {
             page: control.page  
             }
         }
+    }
+
+    async findOneByUuid(uuid: string): Promise<Project> {
+        return await this.databaseService.project.findUnique({
+            where:{
+                uuid
+            }
+        }) as unknown as Project;
     }
 }

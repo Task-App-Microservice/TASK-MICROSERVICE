@@ -1,7 +1,8 @@
+import { ControlPagination, ResponsePagination } from "src/root/core/pagination.core";
 import { Project } from "../entities/project.entity";
-import { ControlPagination, ResponsePagination } from "../repositories/read-project.repository";
 
 export interface ReadProjectService {
     findOneById(id: number): Promise<Project>;
+    findOneByUuid(uuid: string): Promise<Project>;
     findAllByExternalId(userId: string, control: ControlPagination): Promise<ResponsePagination<Project[]>>
 } 
