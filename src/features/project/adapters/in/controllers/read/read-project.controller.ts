@@ -31,7 +31,6 @@ export class ReadProjectController {
   }
   
   @Get("single/:projectCuid")
-  @UseInterceptors(GlobalResponseInterceptor)
   async getProject(
     @Param('projectCuid', CuidValidationPipe) projectCuid: string,
   ){

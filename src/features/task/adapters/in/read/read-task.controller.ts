@@ -14,11 +14,11 @@ import { GlobalResponseInterceptor } from 'src/root/interceptors/global-response
 import { CuidValidationPipe } from 'src/root/pipes/cuid-validator.pipe';
 
 @Controller('task')
+@UseInterceptors(GlobalResponseInterceptor)
 export class ReadTaskController {
   constructor(private readonly readTaskService: ReadTaskServiceImpl) { }
 
   @Get("all/:projectId")
-  @UseInterceptors(GlobalResponseInterceptor)
   async findALl(
     @Param('projectId', CuidValidationPipe) projectId: string,
     @Query("page") page: string,
@@ -31,7 +31,6 @@ export class ReadTaskController {
   }
 
   @Get("single/:uuid")
-  @UseInterceptors(GlobalResponseInterceptor)
   async findOne(
     @Param('uuid', CuidValidationPipe) uuid: string,
   ) {
