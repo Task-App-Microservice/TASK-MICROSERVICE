@@ -30,4 +30,12 @@ export class ReadTaskController {
     })
   }
 
+  @Get("single/:uuid")
+  @UseInterceptors(GlobalResponseInterceptor)
+  async findOne(
+    @Param('uuid', CuidValidationPipe) uuid: string,
+  ) {
+    return{task: await this.readTaskService.findOne(uuid)}
+  }
+
 }

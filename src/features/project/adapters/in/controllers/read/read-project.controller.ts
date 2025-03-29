@@ -26,8 +26,15 @@ export class ReadProjectController {
       {
         page: +page || 1,
         limit: +limit || 10
-      }
+      } 
     );
   }
-
+  
+  @Get("single/:projectCuid")
+  @UseInterceptors(GlobalResponseInterceptor)
+  async getProject(
+    @Param('projectCuid', CuidValidationPipe) projectCuid: string,
+  ){
+    return{project: await this.readProjectService.findOneByUuid(projectCuid)}
+  }
 }
