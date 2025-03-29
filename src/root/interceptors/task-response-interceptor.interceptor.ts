@@ -11,14 +11,14 @@ import { ScheduleService } from '../infra/redis/services/schedule.service';
 @Injectable()
 export class TaskResponseInterceptor implements NestInterceptor {
   constructor(
-    private readonly schedule: ScheduleService
+   // private readonly schedule: ScheduleService
   ){}
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     return next.handle().pipe(
       tap(async (task: Task)=>{
         if(task && task.dueDate){
-          console.log(task.dueDate)
-          await this.schedule.scheduleTask(task.title, task.dueDate)
+         console.log(task.dueDate)
+        //  await this.schedule.scheduleTask(task.title, task.dueDate)
         }
       }),
       map((data) => ({

@@ -10,12 +10,12 @@ import { RedisModule } from './infra/redis/redis.module';
 @Module({
   imports: [RedisModule,
     ConfigModule.forRoot({ isGlobal: true }),
-    BullModule.forRoot({
-      connection: {
-        host: process.env.REDIS_HOST || 'redis',
-        port: Number(process.env.REDIS_PORT) || 6379,
-      },
-    }),
+   // BullModule.forRoot({
+    //  connection: {
+     //   host: process.env.REDIS_HOST || 'redis',
+     //   port: Number(process.env.REDIS_PORT) || 6379,
+     // },
+    //}),
     RabbitModule,
     TaskModule,
     UserModule,
