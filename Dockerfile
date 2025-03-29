@@ -7,13 +7,13 @@ RUN apk add --no-cache python3 make g++ && corepack enable && corepack prepare p
 # Define o diretório de trabalho
 WORKDIR /app
 
-# Copia os arquivos de dependências
+# Copia os arquivos package.json e pnpm-lock.yaml
 COPY package.json pnpm-lock.yaml ./
 
 # Instala as dependências
 RUN pnpm install --frozen-lockfile
 
-# Copia o diretório prisma
+# Copia o diretório prisma (ou o arquivo schema.prisma)
 COPY prisma ./prisma
 
 # Gera o cliente Prisma
@@ -22,27 +22,24 @@ RUN pnpm prisma generate
 # Copia o restante do código-fonte
 COPY . .
 
-# Compila a aplicação NestJS
-RUN pnpm build
-
 # Stage 2: Final stage
 FROM node:23-alpine
 
 # Define o diretório de trabalho
 WORKDIR /app
 
-# Instala apenas o PNPM e dependências mínimas
-RUN apk add --no-cache python3 make g++ && corepack enable && corepack prepare pnpm@latest --activate
+# Instala ferramentas necessárias para executar código nativo
+RUN apk add --no-cache python3 make g++
 
-# Copia os node_modules e o código compilado do estágio anterior
+# Reinstala o PNPM no segundo estágio
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+# Copia apenas os node_modules e o código-fonte do estágio anterior
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/package.json ./
-COPY --from=builder /app/pnpm-lock.yaml ./
-COPY --from=builder /app/prisma ./prisma
+COPY . .
 
 # Expõe a porta da aplicação
-EXPOSE 4002
+EXPOSE 4000
 
-# Comando para iniciar a aplicação em produção
-CMD ["pnpm", "start:prod"]
+# Comando para iniciar a aplicação
+CMD ["pnpm", "start"]
