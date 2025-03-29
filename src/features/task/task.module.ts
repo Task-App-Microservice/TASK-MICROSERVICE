@@ -16,7 +16,7 @@ import { RedisModule } from 'src/root/infra/redis/redis.module';
     DatabaseModule,
     UserModule,
     ProjectModule,
-    RedisModule
+   // RedisModule
   ],
   controllers: [
     ReadTaskController,

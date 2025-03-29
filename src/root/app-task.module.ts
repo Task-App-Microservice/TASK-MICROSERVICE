@@ -16,7 +16,7 @@ import { RedisModule } from './infra/redis/redis.module';
      //   port: Number(process.env.REDIS_PORT) || 6379,
      // },
     //}),
-    RabbitModule,
+   // RabbitModule,
     TaskModule,
     UserModule,
     ProjectModule

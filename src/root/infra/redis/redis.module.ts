@@ -5,17 +5,17 @@ import { ScheduleProcessor } from './services/schedule/schedule-processor.servic
 
 @Module({
   imports: [
-    BullModule.registerQueue({
-      name: 'schedule',
-    }),
+   // BullModule.registerQueue({
+    //  name: 'schedule',
+   // }),
   ],
   controllers: [],
   providers: [
-    ScheduleService,
-    ScheduleProcessor
+   // ScheduleService,
+   // ScheduleProcessor
   ],
   exports: [
-    ScheduleService
+    //ScheduleService
   ]
 })
 export class RedisModule {}
