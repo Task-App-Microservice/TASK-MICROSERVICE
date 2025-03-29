@@ -9,7 +9,8 @@ export class CreateTaskRepositoryImpl implements CreateTaskRepository {
         private readonly databaseService: DatabaseService
     ){}
     async save(data: TaskData): Promise<Task> {
-        const {userId, ...dataTran} = data
+        const {userId, ...dataTran} = data;
+        console.log("data vinda do dto: ", data.dueDate)
         return await this.databaseService.task.create({
             data:{
                 ...dataTran,

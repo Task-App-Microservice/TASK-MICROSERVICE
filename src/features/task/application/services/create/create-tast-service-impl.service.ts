@@ -7,16 +7,21 @@ import { CreateTaskService } from 'src/features/task/domain/services/create-task
 import { ReadUserServiceImpl } from 'src/features/user/application/services/read/read-user-service-impl.service';
 
 @Injectable()
-export class CreateTaskServiceImpl implements  CreateTaskService {
+export class CreateTaskServiceImpl implements CreateTaskService {
     constructor(
         private readonly taskRepo: CreateTaskRepositoryImpl,
         private readonly readUserService: ReadUserServiceImpl,
         private readonly readProjectService: ReadProjectServiceImpl
-    ){}
+    ) { }
 
     async create(data: TaskData, referenceExternalId: string): Promise<Task> {
-        await this.readUserService.findOne(referenceExternalId);
-        await this.readProjectService.findOneById(data.projectId);
-        return await this.taskRepo.save(data);
+        const userExisting = await this.readUserService.findOne(referenceExternalId);
+        const projectExisting = await this.readProjectService.findOneById(data.projectId);
+        return await this.taskRepo.save(
+            {
+                ...data,
+                userId: userExisting.id,
+                projectId: projectExisting.id
+            });
     }
 }

@@ -1,4 +1,6 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID, Matches } from "class-validator";
+import { Transform, Type } from "class-transformer";
+import { IsDate, IsNotEmpty, IsNumber, IsOptional, IsString, MinDate } from "class-validator";
+import { IsFutureDateTime } from "src/root/pipes/date-validator.pipe";
 
 export class CreateTaskDto {
     @IsString()
@@ -17,4 +19,10 @@ export class CreateTaskDto {
     @IsNumber()
     @IsNotEmpty()
     projectId: number;
+
+    @IsOptional()
+    @IsDate({ message: 'A data deve ser uma data válida' })
+    @Type(() => Date)
+    @IsFutureDateTime({ message: 'A data e hora devem estar no futuro' })
+    dueDate?: Date;
 }

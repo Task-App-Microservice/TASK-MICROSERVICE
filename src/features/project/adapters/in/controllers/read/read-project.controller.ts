@@ -3,11 +3,14 @@ import {
   Get,
   Param,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ReadProjectServiceImpl } from 'src/features/project/application/services/read/read-project-service-impl.service';
+import { GlobalResponseInterceptor } from 'src/root/interceptors/global-response.interceptor';
 import { CuidValidationPipe } from 'src/root/pipes/cuid-validator.pipe';
 
 @Controller('task/project')
+@UseInterceptors(GlobalResponseInterceptor)
 export class ReadProjectController {
   constructor(private readonly readProjectService: ReadProjectServiceImpl) {}
 

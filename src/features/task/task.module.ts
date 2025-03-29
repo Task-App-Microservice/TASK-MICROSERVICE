@@ -8,12 +8,15 @@ import { ReadTaskServiceImpl } from './application/services/read/read-tast-servi
 import { ReadTaskRepositoryImpl } from './adapters/out/repositories/read/read-task-repository-impl.provider';
 import { CreateTaskController } from './adapters/in/create/create-task.controller';
 import { CreateTaskServiceImpl } from './application/services/create/create-tast-service-impl.service';
+import { BullModule } from '@nestjs/bullmq';
+import { RedisModule } from 'src/root/infra/redis/redis.module';
 
 @Module({
   imports: [
     DatabaseModule,
     UserModule,
-    ProjectModule
+    ProjectModule,
+    RedisModule
   ],
   controllers: [
     ReadTaskController,

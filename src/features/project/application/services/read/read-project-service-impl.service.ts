@@ -4,6 +4,7 @@ import { Project } from 'src/features/project/domain/entities/project.entity';
 import { ReadProjectService } from 'src/features/project/domain/services/read-project-service';
 import { ReadUserServiceImpl } from 'src/features/user/application/services/read/read-user-service-impl.service';
 import { ControlPagination, ResponsePagination } from 'src/root/core/pagination.core';
+import { NotFoundExceptionGlobal } from 'src/root/exceptions/notfound.execptions';
 
 @Injectable()
 export class ReadProjectServiceImpl implements ReadProjectService {
@@ -13,7 +14,7 @@ export class ReadProjectServiceImpl implements ReadProjectService {
   ){}
   async findOneById(id: number): Promise<Project> {
     const projectExisting = await this.projectRepo.findOneById(id);
-    if(!projectExisting) throw new NotAcceptableException("Projecto nao encontrado");
+    if(!projectExisting) throw new NotFoundExceptionGlobal("Projecto nao encontrado");
     return projectExisting;
   }
 
@@ -24,7 +25,7 @@ export class ReadProjectServiceImpl implements ReadProjectService {
 
   async findOneByUuid(uuid: string): Promise<Project> {
     const projectExisting = await this.projectRepo.findOneByUuid(uuid);
-    if(!projectExisting) throw new NotAcceptableException("Projecto nao encontrado");
+    if(!projectExisting) throw new NotFoundExceptionGlobal("Projecto nao encontrado");
     return projectExisting
   }
 }

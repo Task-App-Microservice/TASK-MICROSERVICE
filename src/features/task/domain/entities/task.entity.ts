@@ -10,6 +10,7 @@ export class Task{
     status: "PENDING" | "IN_PROGRESS" | "DONE";
     createdAt: Date;
     updatedAt: Date;
+    dueDate?: Date;
     user: User;
     project: Project;
 }

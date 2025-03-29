@@ -32,4 +32,12 @@ export class ReadTaskRepositoryImpl implements ReadTaskRepository {
             }
         }
     }
+
+    async findByUid(uuid: string): Promise<Task> {
+        return await this.databaseService.task.findUnique({
+            where:{
+                uuid
+            }
+        }) as unknown as Task;
+    }
 }
